@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { BiSearch, BiMenu } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
+import { Spin as Hamburger } from 'hamburger-react';
 
 //Components
 import SearchSection from './SearchSection';
@@ -21,28 +22,42 @@ function Navbar() {
 
   return (
     <>
-      <div className='w-full bg-slate-50 fixed top-0 shadow-md'>
-        <nav className='h-24 py-8 z-20  flex items-center justify-around font-semibold tracking-wide '>
-          <div className='block cursor-pointer lg:hidden border-2 border-slate-600 hover:border-white px-2'>
-            {nav ? (
-              <AiOutlineClose size={28} onClick={handleNavBar} />
-            ) : (
-              <BiMenu size={28} onClick={handleNavBar} />
-            )}
+      <div className='w-full bg-slate-50 fixed top-0 shadow-md z-20'>
+        <nav className='h-24 py-8  flex items-center justify-around font-semibold tracking-wide '>
+          <div className='block cursor-pointer lg:hidden '>
+            <Hamburger toggled={nav} toggle={handleNavBar} size={25} />
           </div>
 
-          <h1 className='text-3xl '>
+          <h1 className='text-3xl tracking-wide'>
             Home<span className='text-green-500'>Finder</span>
           </h1>
           <div className='hidden text-lg lg:flex gap-10'>
-            <NavLink className='cursor-pointer hover:border-b-2 border-green-500'>
+            <NavLink
+              to='/'
+              className={({ isActive }) =>
+                isActive
+                  ? 'border-b-2 border-green-500 '
+                  : 'cursor-pointer hover:border-b-2 border-green-500'
+              }
+            >
               Home
             </NavLink>
-            <NavLink className='cursor-pointer hover:border-b-2 border-green-500'>
+            <NavLink
+              to='/about'
+              className={({ isActive }) =>
+                isActive
+                  ? 'border-b-2 border-green-500'
+                  : 'cursor-pointer hover:border-b-2 border-green-500'
+              }
+            >
               About
             </NavLink>
             <NavLink
-              className='cursor-pointer hover:border-b-2 border-green-500'
+              className={({ isActive }) =>
+                isActive
+                  ? 'border-b-2 border-green-500 '
+                  : 'cursor-pointer hover:border-b-2 border-green-500'
+              }
               to='/property'
             >
               Property

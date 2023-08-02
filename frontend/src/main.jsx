@@ -13,11 +13,13 @@ import {
 //Pages
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index element={<HomePage />} />
+      <Route path='/about' element={<AboutPage />} />
       <Route path='/property' element={<PropertyPage />} />
     </Route>
   )

@@ -2,7 +2,7 @@ import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin } from 'react-icons/bs';
 
 function Footer() {
   return (
-    <div className='w-full grid grid-rows-3 gap-3 text-center bg-slate-100 py-4 font-extralight'>
+    <div className='w-full grid grid-rows-3 gap-3 text-center bg-slate-100 py-4 text-sm font-thin'>
       <div className='flex items-center justify-center gap-3'>
         <h6>Home</h6>
         <h6>About</h6>
