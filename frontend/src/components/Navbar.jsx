@@ -28,7 +28,7 @@ function Navbar() {
             <Hamburger toggled={nav} toggle={handleNavBar} size={25} />
           </div>
 
-          <h1 className='text-3xl tracking-wide'>
+          <h1 className='text-3xl tracking-wide '>
             Home<span className='text-green-500'>Finder</span>
           </h1>
           <div className='hidden text-lg lg:flex gap-10'>

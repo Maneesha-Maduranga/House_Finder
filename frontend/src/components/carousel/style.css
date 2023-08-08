@@ -1,0 +1,54 @@
+/* CustomSwiper.css */
+
+/* Customize the pagination container */
+.swiper-pagination {
+    padding: 35px 0px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Customize the pagination button */
+.swiper-pagination-bullet {
+    width: 20px;
+    height: 10px;
+    background-color: rgb(255, 255, 255);
+    margin: 0 5px;
+    border-radius: 0;
+    /* Remove border-radius */
+    transition: background-color 0.3s ease;
+}
+
+/* Customize the active pagination button */
+.swiper-pagination-bullet-active {
+    background-color: #22C55E;
+    width: 30px;
+}
+
+/* CustomSwiper.css */
+
+/* Customize the navigation buttons */
+.swiper-button-prev,
+.swiper-button-next {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+/* Customize the navigation buttons icon color */
+.swiper-button-prev::before,
+.swiper-button-next::before {
+    color: white;
+}
+
+/* Change color on hover */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background-color: rgba(0, 0, 0, 1);
+}

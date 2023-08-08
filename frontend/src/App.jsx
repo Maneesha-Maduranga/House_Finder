@@ -10,7 +10,7 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <main className='container mx-auto py-20 my-10 px-10'>
+      <main>
         <Outlet />
       </main>
       <footer>
