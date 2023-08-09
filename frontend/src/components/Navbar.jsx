@@ -62,6 +62,16 @@ function Navbar() {
             >
               Property
             </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? 'border-b-2 border-green-500 '
+                  : 'cursor-pointer hover:border-b-2 border-green-500'
+              }
+              to='/signin'
+            >
+              Sign in
+            </NavLink>
           </div>
           <div className='cursor-pointer'>
             <BiSearch size={28} onClick={handleSearchSection} />

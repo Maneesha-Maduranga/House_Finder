@@ -4,7 +4,7 @@ function BgImage({ image }) {
   return (
     <div className='relative h-full'>
       <img src={image} alt='image' className='h-full w-full brightness-75' />
-      <div className='absolute bottom-20 left-10 text-white'>
+      <div className='absolute bottom-20 left-10 text-white px-3'>
         <div className='text-4xl font-bold text-slate-100 md:text-5xl'>
           <h1>
             <span className='text-green-500'>204</span> Mount
