@@ -2,7 +2,10 @@
 const { User, userValidator } = require('../Model/User');
 // Helpers
 const CustomError = require('../utills/customError');
+const emailVerification = require('../utills/emailVerification');
 const { sendCookie } = require('../utills/Jwt');
+//Crypto
+const Crypto = require('crypto');
 
 //All Authentication Functions
 
@@ -21,20 +24,20 @@ const registerUser = async (req, res) => {
     throw new CustomError('Email Is Allready Used.Try Another One', 400);
   }
 
-  user = await User.create({ username, email, password });
+  let fakeToken = Crypto.randomBytes(20).toString('hex');
 
-  let tokenUser = {
-    id: user._id,
-    name: user.username,
-    email: user.email,
-    role: user.role,
-  };
+  user = await User.create({
+    username,
+    email,
+    password,
+    verifyToken: fakeToken,
+  });
 
-  sendCookie(res, tokenUser);
+  await emailVerification({ name: user.username, email: user.email });
 
-  res.status(200).json({
-    sucess: true,
-    data: tokenUser,
+  res.status(201).json({
+    message: 'Please Verify The Email',
+    toke: user.verifyToken,
   });
 };
 
@@ -56,6 +59,10 @@ const loginUser = async (req, res) => {
     throw new CustomError('Password Is Incorrect', 400);
   }
 
+  if (!user.isVerifeid) {
+    throw new CustomError('Please Verify the Email', 401);
+  }
+
   let tokenUser = {
     id: user._id,
     name: user.username,
@@ -68,6 +75,27 @@ const loginUser = async (req, res) => {
   res.status(200).json({
     sucess: true,
     data: tokenUser,
+  });
+};
+
+const verifyEmail = async (req, res) => {
+  const { token, email } = req.body;
+
+  let user = await User.findOne({ email });
+
+  if (!user) {
+    throw new CustomError('No User Find With Given Email', 404);
+  }
+  if (token !== user.verifyToken) {
+    throw new CustomError('Verification Failed', 400);
+  }
+  (user.isVerifeid = true), (user.verifiedAt = Date.now());
+  user.verifyToken = ' ';
+
+  await user.save();
+
+  res.status(200).json({
+    message: 'Email Verified',
   });
 };
 
@@ -84,5 +112,6 @@ const logoutUser = async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
+  verifyEmail,
   logoutUser,
 };

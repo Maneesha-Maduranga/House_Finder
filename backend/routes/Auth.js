@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   registerUser,
   loginUser,
+  verifyEmail,
   logoutUser,
 } = require('../controller/Auth.js');
 
@@ -12,6 +13,9 @@ router.post('/register', registerUser);
 
 //Login User
 router.post('/login', loginUser);
+
+//Verify Email
+router.post('/verifyEmail', verifyEmail);
 
 //Logout User
 router.get('/logout', logoutUser);
