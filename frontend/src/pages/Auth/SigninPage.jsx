@@ -1,6 +1,25 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+//Redux
+import { useSignINMutation } from '../../features/Rtk/authApiSlice';
+
 function SigninPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [signIN] = useSignINMutation();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const res = await signIN({ email, password });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
       <div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8'>
@@ -8,7 +27,10 @@ function SigninPage() {
           <h1 className='text-2xl font-bold sm:text-3xl'>Get started today!</h1>
         </div>
 
-        <form action='' className='mx-auto mb-0 mt-8 max-w-md space-y-4'>
+        <form
+          className='mx-auto mb-0 mt-8 max-w-md space-y-4'
+          onSubmit={handleSubmit}
+        >
           <div>
             <label htmlFor='email' className='sr-only'>
               Email
@@ -19,6 +41,10 @@ function SigninPage() {
                 type='email'
                 className='w-full rounded-lg border-gray-200 border-2 p-4 pe-12 text-sm shadow-sm'
                 placeholder='Enter email'
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -33,6 +59,10 @@ function SigninPage() {
                 type='password'
                 className='w-full rounded-lg border-gray-200 border-2 p-4 pe-12 text-sm shadow-sm'
                 placeholder='Enter password'
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
           </div>

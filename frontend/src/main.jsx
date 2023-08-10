@@ -10,6 +10,13 @@ import {
   Route,
 } from 'react-router-dom';
 
+//Redux
+import { store } from './store';
+import { Provider } from 'react-redux';
+
+//Toast
+import { Toaster } from 'react-hot-toast';
+
 //Pages
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage.jsx';
@@ -39,6 +46,9 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Provider store={store}>
+      <Toaster position='bottom-center' reverseOrder={false} />
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

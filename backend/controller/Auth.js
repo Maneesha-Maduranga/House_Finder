@@ -24,20 +24,27 @@ const registerUser = async (req, res) => {
     throw new CustomError('Email Is Allready Used.Try Another One', 400);
   }
 
-  let fakeToken = Crypto.randomBytes(20).toString('hex');
+  let token = Crypto.randomBytes(20).toString('hex');
 
   user = await User.create({
     username,
     email,
     password,
-    verifyToken: fakeToken,
+    verifyToken: token,
   });
 
-  await emailVerification({ name: user.username, email: user.email });
+  let origin = ' http://localhost:5173/';
+
+  await emailVerification({
+    name: user.username,
+    email: user.email,
+    origin: origin,
+    token: user.verifyToken,
+  });
 
   res.status(201).json({
     message: 'Please Verify The Email',
-    toke: user.verifyToken,
+    token: user.verifyToken,
   });
 };
 
