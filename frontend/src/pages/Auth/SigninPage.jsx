@@ -2,21 +2,47 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //Redux
-import { useSignINMutation } from '../../features/Rtk/authApiSlice';
+import { useSignInMutation } from '../../features/Rtk/authApiSlice';
+
+//Hook Form
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+//Toast
+import toast from 'react-hot-toast';
+
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+  })
+  .required();
 
 function SigninPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const [signIN] = useSignINMutation();
+  const [signIn] = useSignInMutation();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function onSubmit(values) {
     try {
-      const res = await signIN({ email, password });
-      console.log(res);
+     
+      const { data, error } = await signIn(values);
+      if (data) {
+        console.log(data);
+      }
+      if (error) {
+        return toast.error(error.data.error);
+      }
     } catch (error) {
-      console.log(error);
+      toast.error('Please Try Again');
     }
   }
 
@@ -29,7 +55,7 @@ function SigninPage() {
 
         <form
           className='mx-auto mb-0 mt-8 max-w-md space-y-4'
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div>
             <label htmlFor='email' className='sr-only'>
@@ -39,13 +65,11 @@ function SigninPage() {
             <div className='relative'>
               <input
                 type='email'
-                className='w-full rounded-lg border-gray-200 border-2 p-4 pe-12 text-sm shadow-sm'
+                className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
                 placeholder='Enter email'
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                {...register('email')}
               />
+              <p className='text-sm text-red-500'>{errors.email?.message}</p>
             </div>
           </div>
 
@@ -57,13 +81,11 @@ function SigninPage() {
             <div className='relative'>
               <input
                 type='password'
-                className='w-full rounded-lg border-gray-200 border-2 p-4 pe-12 text-sm shadow-sm'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
+                placeholder='Enter Password'
+                {...register('password')}
               />
+              <p className='text-sm text-red-500'>{errors.password?.message}</p>
             </div>
           </div>
 
@@ -77,7 +99,7 @@ function SigninPage() {
 
             <button
               type='submit'
-              className='inline-block rounded-lg bg-green-400 px-5 py-3 text-sm font-medium text-white'
+              className='inline-block rounded-lg bg-green-400 px-5  py-2 text-sm font-medium text-white'
             >
               Sign in
             </button>

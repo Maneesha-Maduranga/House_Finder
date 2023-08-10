@@ -46,6 +46,7 @@ function SignupPage() {
     }
     try {
       setLoding(true);
+
       const { data, error } = await signUp(values);
       setLoding(false);
       if (data) {

@@ -96,13 +96,13 @@ const verifyEmail = async (req, res) => {
   if (token !== user.verifyToken) {
     throw new CustomError('Verification Failed', 400);
   }
-  (user.isVerifeid = true), (user.verifiedAt = Date.now());
-  user.verifyToken = ' ';
+  user.isVerifeid = true;
+  user.verifiedAt = Date.now();
 
   await user.save();
 
   res.status(200).json({
-    message: 'Email Verified',
+    message: 'Email is Verified',
   });
 };
 

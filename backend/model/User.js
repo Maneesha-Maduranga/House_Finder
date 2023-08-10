@@ -56,6 +56,7 @@ const userValidator = (username, email, password) => {
 
 //Hash Password
 UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return;
   try {
     const hashPassword = await bcrypt.hash(this.password, 10);
     this.password = hashPassword;
@@ -68,6 +69,7 @@ UserSchema.pre('save', async function (next) {
 //Validate Password
 UserSchema.method('validatePassword', async function (password) {
   const isMatched = await bcrypt.compare(password, this.password);
+
   return isMatched;
 });
 

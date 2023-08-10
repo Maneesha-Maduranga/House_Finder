@@ -26,6 +26,7 @@ import PropertyDetail from './pages/PropertyDetailPage.jsx';
 //Auth Pages
 import SigninPage from './pages/Auth/SigninPage.jsx';
 import SignupPage from './pages/Auth/SignupPage.jsx';
+import VerifyemailPage from './pages/Auth/VerifyemailPage.jsx';
 
 //User Pages
 import DashBoardPage from './pages/User/DashboardPage.jsx';
@@ -39,16 +40,15 @@ const router = createBrowserRouter(
       <Route path='/property/:id' element={<PropertyDetail />} />
       <Route path='/signin' element={<SigninPage />} />
       <Route path='/signup' element={<SignupPage />} />
+      <Route path='/verify-email' element={<VerifyemailPage />} />
       <Route path='/dashboard' element={<DashBoardPage />} />
     </Route>
   )
 );
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <Toaster position='bottom-center' reverseOrder={false} />
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <Toaster position='top-center' reverseOrder={false} />
+    <RouterProvider router={router} />
+  </Provider>
 );

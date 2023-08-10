@@ -2,14 +2,11 @@ import { baseApi } from './apiBaseSlice';
 
 const authApiSlice = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    signIN: build.mutation({
-      query: ({ email, password }) => ({
+    signIn: build.mutation({
+      query: (body) => ({
         url: '/auth/login',
         method: 'POST',
-        body: {
-          email: email,
-          password: password,
-        },
+        body: body,
       }),
     }),
     signUp: build.mutation({
@@ -19,8 +16,19 @@ const authApiSlice = baseApi.injectEndpoints({
         body: body,
       }),
     }),
+    verifyMe: build.mutation({
+      query: ({ email, token }) => ({
+        url: '/auth/verifyEmail',
+        method: 'POST',
+        body: {
+          email: email,
+          token: token,
+        },
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useSignINMutation, useSignUpMutation } = authApiSlice;
+export const { useSignInMutation, useSignUpMutation, useVerifyMeMutation } =
+  authApiSlice;
