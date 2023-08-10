@@ -17,6 +17,9 @@ import { Provider } from 'react-redux';
 //Toast
 import { Toaster } from 'react-hot-toast';
 
+//Layput
+import PrivateLayout from './layout/PrivateLayout.jsx';
+
 //Pages
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage.jsx';
@@ -41,7 +44,9 @@ const router = createBrowserRouter(
       <Route path='/signin' element={<SigninPage />} />
       <Route path='/signup' element={<SignupPage />} />
       <Route path='/verify-email' element={<VerifyemailPage />} />
-      <Route path='/dashboard' element={<DashBoardPage />} />
+      <Route path='' element={<PrivateLayout />}>
+        <Route path='/dashboard' element={<DashBoardPage />} />
+      </Route>
     </Route>
   )
 );

@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //Redux
+import { useDispatch } from 'react-redux';
+import { storeUser } from '../../features/userSlice';
 import { useSignInMutation } from '../../features/Rtk/authApiSlice';
 
 //Hook Form
@@ -30,13 +31,23 @@ function SigninPage() {
   });
 
   const [signIn] = useSignInMutation();
+  const navigate = useNavigate();
+
+  //redux
+  const dispatch = useDispatch();
 
   async function onSubmit(values) {
     try {
-     
       const { data, error } = await signIn(values);
       if (data) {
-        console.log(data);
+        reset();
+        dispatch(storeUser(data.data));
+        toast.success(`Welcome Back ${data.data.name}`, {
+          style: {
+            minWidth: '300px',
+          },
+        });
+        navigate('/dashboard');
       }
       if (error) {
         return toast.error(error.data.error);
