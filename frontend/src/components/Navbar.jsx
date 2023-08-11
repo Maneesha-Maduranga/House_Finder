@@ -81,7 +81,7 @@ function Navbar() {
         <div
           className={
             nav
-              ? 'flex flex-col  w-full  h-40 px-10  tracking-widest  uppercase divide-y divide-green-400 opacity-90 gap-5'
+              ? 'flex flex-col  w-full  h-full px-10  tracking-widest  uppercase divide-y divide-green-400 opacity-90 gap-5'
               : 'hidden'
           }
         >
@@ -96,6 +96,12 @@ function Navbar() {
             to='/property'
           >
             Property
+          </NavLink>
+          <NavLink
+            className='cursor-pointer  hover:text-green-400'
+            to='/signin'
+          >
+            SignIn
           </NavLink>
         </div>
       </div>

@@ -5,6 +5,8 @@ const {
   registerUser,
   loginUser,
   verifyEmail,
+  forgetPassword,
+  resetPassword,
   logoutUser,
 } = require('../controller/Auth.js');
 
@@ -16,6 +18,12 @@ router.post('/login', loginUser);
 
 //Verify Email
 router.post('/verifyEmail', verifyEmail);
+
+//Forget Passsword
+router.post('/forgetPassword', forgetPassword);
+
+//reset Passsword
+router.post('/resetPassword', resetPassword);
 
 //Logout User
 router.get('/logout', logoutUser);
