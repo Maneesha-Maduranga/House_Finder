@@ -6,11 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 //Toast
+import { useState } from 'react';
+//toast
 import toast from 'react-hot-toast';
 
 //redux
 import { useSignUpMutation } from '../../features/Rtk/authApiSlice';
-import { useState } from 'react';
 
 //Components
 import Aleart from '../../components/Aleart';
@@ -132,7 +133,7 @@ function SignupPage() {
 
             <div className='flex items-center justify-between flex-col md:flex-row gap-2'>
               <p className='text-sm text-gray-500'>
-                Already have an account?
+                Already have an account 😎?
                 <Link className='underline' to='/signin'>
                   Sign in
                 </Link>

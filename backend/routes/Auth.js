@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
+const { authentication } = require('../middleware/security');
+
 const {
   registerUser,
   loginUser,
   verifyEmail,
   forgetPassword,
   resetPassword,
+  showMe,
   logoutUser,
 } = require('../controller/Auth.js');
 
@@ -24,6 +27,9 @@ router.post('/forgetPassword', forgetPassword);
 
 //reset Passsword
 router.post('/resetPassword', resetPassword);
+
+//DashBoard Page
+router.get('/showMe', authentication, showMe);
 
 //Logout User
 router.get('/logout', logoutUser);

@@ -1,5 +1,6 @@
 // Models
 const { User, userValidator } = require('../Model/User');
+const { Token } = require('../Model/Token');
 // Helpers
 const CustomError = require('../utills/customError');
 const emailVerification = require('../utills/emailVerification');
@@ -163,6 +164,10 @@ const resetPassword = async (req, res) => {
   });
 };
 
+const showMe = async (req, res) => {
+  res.send(req.user);
+};
+
 const logoutUser = async (req, res) => {
   res.cookie('Access_Token', '', {
     expires: new Date(Date.now()),
@@ -179,5 +184,6 @@ module.exports = {
   verifyEmail,
   forgetPassword,
   resetPassword,
+  showMe,
   logoutUser,
 };

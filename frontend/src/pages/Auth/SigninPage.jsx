@@ -59,63 +59,74 @@ function SigninPage() {
 
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
-      <div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8'>
-        <div className='mx-auto max-w-lg text-center'>
-          <h1 className='text-2xl font-bold sm:text-3xl'>Get started today!</h1>
-        </div>
+      <div className='mx-auto max-w-screen-xl px-4 py-5 sm:px-6 lg:px-8'>
+        <div className='mx-auto max-w-lg'>
+          <h1 className='text-center text-2xl font-bold text-green-400 sm:text-3xl'>
+            Get started today
+          </h1>
 
-        <form
-          className='mx-auto mb-0 mt-8 max-w-md space-y-4'
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div>
-            <label htmlFor='email' className='sr-only'>
-              Email
-            </label>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8'
+          >
+            <p className='text-center text-lg font-medium'>
+              Sign in to your account
+            </p>
 
-            <div className='relative'>
-              <input
-                type='email'
-                className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
-                placeholder='Enter email'
-                {...register('email')}
-              />
-              <p className='text-sm text-red-500'>{errors.email?.message}</p>
+            <div>
+              <label htmlFor='email' className='sr-only'>
+                Email
+              </label>
+
+              <div className='relative'>
+                <input
+                  type='email'
+                  className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
+                  placeholder='Enter email'
+                  {...register('email')}
+                />
+                <p className='text-sm text-red-500'>{errors.email?.message}</p>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label htmlFor='password' className='sr-only'>
-              Password
-            </label>
+            <div>
+              <label htmlFor='password' className='sr-only'>
+                Password
+              </label>
 
-            <div className='relative'>
-              <input
-                type='password'
-                className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
-                placeholder='Enter Password'
-                {...register('password')}
-              />
-              <p className='text-sm text-red-500'>{errors.password?.message}</p>
+              <div className='relative'>
+                <input
+                  type='password'
+                  className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
+                  placeholder='Enter Password'
+                  {...register('password')}
+                />
+                <p className='text-sm text-red-500'>
+                  {errors.password?.message}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className='flex items-center justify-between'>
-            <p className='text-sm text-gray-500'>
+            <button
+              type='submit'
+              className='block w-full rounded-lg bg-green-400 px-5 py-3 text-sm font-medium text-white'
+            >
+              Sign in
+            </button>
+
+            <p className='text-center text-sm text-gray-500'>
               No account?
               <Link className='underline' to='/signup'>
                 Sign up
               </Link>
             </p>
-
-            <button
-              type='submit'
-              className='inline-block rounded-lg bg-green-400 px-5  py-2 text-sm font-medium text-white'
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
+            <p className='text-center text-sm text-gray-500'>
+              <Link className='underline' to='/forgot-password'>
+                forget password 😢
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

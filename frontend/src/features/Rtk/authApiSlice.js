@@ -26,9 +26,20 @@ const authApiSlice = baseApi.injectEndpoints({
         },
       }),
     }),
+    forgetPassword: build.mutation({
+      query: (body) => ({
+        url: '/auth/forgetPassword',
+        method: 'POST',
+        body: body,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useSignInMutation, useSignUpMutation, useVerifyMeMutation } =
-  authApiSlice;
+export const {
+  useSignInMutation,
+  useSignUpMutation,
+  useVerifyMeMutation,
+  useForgetPasswordMutation,
+} = authApiSlice;

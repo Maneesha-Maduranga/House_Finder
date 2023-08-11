@@ -3,7 +3,7 @@ function LoadingButton() {
     <button
       disabled
       type='button'
-      className='text-white bg-green-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center'
+      className={`text-white bg-green-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center`}
     >
       <svg
         aria-hidden='true'

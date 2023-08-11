@@ -33,6 +33,7 @@ import VerifyemailPage from './pages/Auth/VerifyemailPage.jsx';
 
 //User Pages
 import DashBoardPage from './pages/User/DashboardPage.jsx';
+import ForgetPasswordPage from './pages/Auth/ForgetPasswordPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
       <Route path='/signin' element={<SigninPage />} />
       <Route path='/signup' element={<SignupPage />} />
       <Route path='/verify-email' element={<VerifyemailPage />} />
+      <Route path='/forgot-password' element={<ForgetPasswordPage />} />
       <Route path='' element={<PrivateLayout />}>
         <Route path='/dashboard' element={<DashBoardPage />} />
       </Route>
