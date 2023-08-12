@@ -1,6 +1,6 @@
 // Models
 const { User, userValidator } = require('../Model/User');
-const { Token } = require('../Model/Token');
+
 // Helpers
 const CustomError = require('../utills/customError');
 const emailVerification = require('../utills/emailVerification');
@@ -12,9 +12,9 @@ const Crypto = require('crypto');
 //All Authentication Functions
 
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, phoneNumber } = req.body;
 
-  const { error } = userValidator(username, email, password);
+  const { error } = userValidator(username, email, password, phoneNumber);
 
   if (error) {
     throw new CustomError(error.message, 400);
@@ -32,6 +32,7 @@ const registerUser = async (req, res) => {
     username,
     email,
     password,
+    phoneNumber,
     verifyToken: token,
   });
 

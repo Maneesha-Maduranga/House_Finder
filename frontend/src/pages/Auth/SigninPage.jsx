@@ -65,7 +65,7 @@ function SigninPage() {
   let { search } = useLocation();
   const serachParms = new URLSearchParams(search);
 
-  const redirect = serachParms.get('redirect') || '/';
+  const redirect = serachParms.get('redirect') || '/dashboard';
 
   useEffect(() => {
     if (user) {

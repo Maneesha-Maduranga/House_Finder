@@ -13,7 +13,8 @@ const port = process.env.PORT || 5000;
 const { connectDB } = require('./database/connectDb');
 
 //Import Routes
-const authRouter = require('./Routes/Auth');
+const authRouter = require('./routes/Auth');
+const propertyRouter = require('./routes/Property');
 
 //Middleware
 const { notFound } = require('./middleware/notFound');
@@ -26,8 +27,8 @@ app.use(cors());
 app.use(cookieParser());
 
 //Routes
-
 app.use('/api/auth/', authRouter);
+app.use('/api/property/', propertyRouter);
 
 //Middleware
 app.use(notFound);

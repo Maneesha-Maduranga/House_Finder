@@ -40,6 +40,12 @@ const authApiSlice = baseApi.injectEndpoints({
         body: body,
       }),
     }),
+    signOut: build.mutation({
+      query: () => ({
+        url: '/auth/logout',
+        method: 'GET',
+      }),
+    }),
   }),
   overrideExisting: false,
 });
@@ -50,4 +56,5 @@ export const {
   useVerifyMeMutation,
   useForgetPasswordMutation,
   useResetPasswordMutation,
+  useSignOutMutation,
 } = authApiSlice;

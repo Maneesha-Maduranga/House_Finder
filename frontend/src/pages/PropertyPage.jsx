@@ -18,10 +18,10 @@ function PropertyPage() {
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
       {/* heading Section */}
-      <div className='w-full h-20 p-2 my-2 bg-white border-l-8 border-green-400 text-left flex items-center justify-between'>
+      <div className='w-full h-20 p-2 my-2 bg-white border-l-8  border-green-400 text-left flex items-center justify-between'>
         <img src={House} alt='house' className='inline-flex w-14 md:w-20' />
 
-        <div className='cursor-pointer inline-flex rounded-full p-2 bg-green-400'>
+        <div className='cursor-pointer inline-flex  p-2 bg-green-400'>
           <BiSearch size={28} onClick={handleSearchSection} color='white' />
         </div>
       </div>

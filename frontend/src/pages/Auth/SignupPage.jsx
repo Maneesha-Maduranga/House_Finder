@@ -21,6 +21,7 @@ const schema = yup
   .object({
     email: yup.string().email().required(),
     username: yup.string().required(),
+    phoneNumber: yup.string().required(),
     password: yup.string().min(6).required(),
     confirmPassword: yup.string().required(),
   })
@@ -103,6 +104,19 @@ function SignupPage() {
                 </p>
               </div>
             </div>
+            <div>
+              <div className='relative'>
+                <input
+                  type='text'
+                  className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
+                  placeholder='Enter Mobile Number'
+                  {...register('phoneNumber')}
+                />
+                <p className='text-sm text-red-500'>
+                  {errors.phoneNumber?.message}
+                </p>
+              </div>
+            </div>
 
             <div>
               <div className='relative'>
@@ -122,7 +136,7 @@ function SignupPage() {
                 <input
                   type='password'
                   className='w-full rounded-lg border-gray-200 border-2 p-2 md:p-4 pe-12 text-sm shadow-sm'
-                  placeholder='Password'
+                  placeholder='Confirm Password'
                   {...register('confirmPassword')}
                 />
                 <p className='text-sm text-red-500'>

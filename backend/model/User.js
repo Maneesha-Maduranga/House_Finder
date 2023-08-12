@@ -18,6 +18,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
     role: {
       type: String,
       enum: ['admin', 'user'],
@@ -50,14 +57,15 @@ UserSchema.virtual('orders', {
 });
 
 //Joi Validator
-const userValidator = (username, email, password) => {
+const userValidator = (username, email, password, phoneNumber) => {
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
+    phoneNumber: Joi.string().required(),
   });
 
-  return schema.validate({ username, email, password });
+  return schema.validate({ username, email, password, phoneNumber });
 };
 
 //Hash Password
