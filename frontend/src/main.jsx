@@ -23,31 +23,33 @@ import PrivateLayout from './layout/PrivateLayout.jsx';
 //Pages
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage.jsx';
-import AboutPage from './pages/AboutPage.jsx';
 import PropertyDetail from './pages/PropertyDetailPage.jsx';
 
 //Auth Pages
 import SigninPage from './pages/Auth/SigninPage.jsx';
 import SignupPage from './pages/Auth/SignupPage.jsx';
 import VerifyemailPage from './pages/Auth/VerifyemailPage.jsx';
+import ForgetPasswordPage from './pages/Auth/ForgetPasswordPage.jsx';
+import ResetPasswordPage from './pages/Auth/ResetPasswordPage.jsx';
 
 //User Pages
 import DashBoardPage from './pages/User/DashboardPage.jsx';
-import ForgetPasswordPage from './pages/Auth/ForgetPasswordPage.jsx';
+import AddPropertyPage from './pages/User/AddPropertyPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index element={<HomePage />} />
-      <Route path='/about' element={<AboutPage />} />
       <Route path='/property' element={<PropertyPage />} />
       <Route path='/property/:id' element={<PropertyDetail />} />
       <Route path='/signin' element={<SigninPage />} />
       <Route path='/signup' element={<SignupPage />} />
       <Route path='/verify-email' element={<VerifyemailPage />} />
       <Route path='/forgot-password' element={<ForgetPasswordPage />} />
+      <Route path='/reset-password' element={<ResetPasswordPage />} />
       <Route path='' element={<PrivateLayout />}>
         <Route path='/dashboard' element={<DashBoardPage />} />
+        <Route path='/add-property' element={<AddPropertyPage />} />
       </Route>
     </Route>
   )

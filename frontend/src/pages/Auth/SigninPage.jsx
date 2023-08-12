@@ -1,7 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 //Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { storeUser } from '../../features/userSlice';
 import { useSignInMutation } from '../../features/Rtk/authApiSlice';
 
@@ -36,6 +37,9 @@ function SigninPage() {
   //redux
   const dispatch = useDispatch();
 
+  //Get User FromStote
+  const { user } = useSelector((state) => state.user);
+
   async function onSubmit(values) {
     try {
       const { data, error } = await signIn(values);
@@ -56,6 +60,20 @@ function SigninPage() {
       toast.error('Please Try Again');
     }
   }
+
+  //Handle Redirect And Navigation
+  let { search } = useLocation();
+  const serachParms = new URLSearchParams(search);
+
+  const redirect = serachParms.get('redirect') || '/';
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate(redirect);
+      }, 1000);
+    }
+  }, [user, navigate, redirect]);
 
   return (
     <div className='container mx-auto py-20 my-10 px-10'>

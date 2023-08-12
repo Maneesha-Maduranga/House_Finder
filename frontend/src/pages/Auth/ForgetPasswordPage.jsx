@@ -46,7 +46,8 @@ function ForgetPasswordPage() {
             </h1>
 
             <p className='mx-auto mt-4 max-w-md text-center text-gray-500'>
-              Enter Your Email Address To Get Password Reset Link
+              Please enter your email address. We'll email you a link to reset
+              your password.
             </p>
 
             <form
