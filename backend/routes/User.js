@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
+//Security
+const { authentication } = require('../middleware/security');
 
 //Controller
-const { uploadProfilePic } = require('../controller/User');
+const { uploadProfilePic, updateProfilePic } = require('../controller/User');
 
-router.post('/uploadProfilePic', uploadProfilePic);
+router.post('/uploadProfilePic', authentication, uploadProfilePic);
+router.post('/updateProfilePic', authentication, updateProfilePic);
 
 module.exports = router;

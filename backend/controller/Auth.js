@@ -167,7 +167,16 @@ const resetPassword = async (req, res) => {
 };
 
 const showMe = async (req, res) => {
-  res.send(req.user);
+  let user = await User.findById(req.user.id).select(
+    '-password -role -verifyToken -verifiedAt'
+  );
+  if (!user) {
+    throw new CustomError('No user Found', 404);
+  }
+  res.status(200).json({
+    sucess: true,
+    data: user,
+  });
 };
 
 const logoutUser = async (req, res) => {
