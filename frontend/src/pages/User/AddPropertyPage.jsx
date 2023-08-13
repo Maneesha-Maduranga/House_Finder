@@ -1,26 +1,17 @@
 import { useState } from 'react';
 //Hook Form
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 function AddPropertyPage() {
-  const [multipleImages, setMultipleImages] = useState([]);
+  const [images, setImages] = useState([]);
   const {
     register,
     formState: { errors },
     handleSubmit,
-    control,
   } = useForm();
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: 'images',
-  });
-
   function handleImageSubmit(event) {
-    const files = event.target.files;
-    const newImages = Array.from(files);
-    setMultipleImages(newImages);
-    console.log(multipleImages);
+    console.log(images);
   }
 
   const onSubmit = (data) => console.log(data);
@@ -224,14 +215,37 @@ function AddPropertyPage() {
             <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
               Add upto 3 Photos(2 required)
             </label>
-            {fields.map((field, index) => (
-              <input
-                className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-                key={field.id} // important to include key with field's id
-                {...register(`images.${index}.value`, { required: true })}
-                onChange={handleImageSubmit}
-              />
-            ))}
+
+            <input
+              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+              {...register(`imageOne`, { required: true })}
+              type='file'
+              onChange={(e) => setImages([...images, e.target.files[0]])}
+            />
+            {errors.imageOne?.type === 'required' && (
+              <p className='text-sm text-red-500'>Image One Is Required</p>
+            )}
+            <input
+              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+              {...register(`imageTwo`, { required: true })}
+              type='file'
+              onChange={(e) => setImages([...images, e.target.files[0]])}
+            />
+            {errors.imageTwo?.type === 'required' && (
+              <p className='text-sm text-red-500'>Image Two Is Required</p>
+            )}
+            <input
+              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+              {...register(`imagesThree`, { required: true })}
+              type='file'
+              onChange={(e) => setImages([...images, e.target.files[0]])}
+            />
+            <button
+              onClick={handleImageSubmit}
+              className='bg-green-400 py-1 px-2 rounded-lg text-xs lg:text-sm text-white'
+            >
+              Uplaod
+            </button>
           </div>
           {/* Contact Details */}
           <div className='border-2 border-green-400 w-full'></div>

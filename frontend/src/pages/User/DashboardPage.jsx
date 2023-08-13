@@ -32,7 +32,7 @@ function DashBoardPage() {
         try {
           const res = await updatePhoto({ image: data.image.src });
           toast.success(res.data.message);
-        } catch (error) {
+        } catch (e) {
           toast.error('Please Try Again');
         }
       }
@@ -46,7 +46,12 @@ function DashBoardPage() {
       <div className='flex flex-col gap-4 divide-y-2 divide-green-300'>
         {/* User Details */}
 
-        {isLoading ? (
+        {error ? (
+          <Aleart
+            color='red-400'
+            title='Something Went Wrong. Please Try Again'
+          />
+        ) : isLoading ? (
           <Spinner />
         ) : (
           <div className='min-w-min mx-auto bg-white p-8 shadow-lg rounded-lg'>
