@@ -13,6 +13,7 @@ const addProperty = async (req, res) => {
     description,
     price,
     negotiable,
+    images,
   } = req.body;
 
   const property = await Property.create({
@@ -28,6 +29,7 @@ const addProperty = async (req, res) => {
     price,
     negotiable,
     user: req.user.id,
+    images: images,
   });
 
   res.status(200).json({

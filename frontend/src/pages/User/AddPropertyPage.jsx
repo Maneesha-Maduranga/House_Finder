@@ -1,8 +1,34 @@
+import { useState } from 'react';
+//Hook Form
+import { useForm, useFieldArray } from 'react-hook-form';
+
 function AddPropertyPage() {
+  const [multipleImages, setMultipleImages] = useState([]);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+  } = useForm();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'images',
+  });
+
+  function handleImageSubmit(event) {
+    const files = event.target.files;
+    const newImages = Array.from(files);
+    setMultipleImages(newImages);
+    console.log(multipleImages);
+  }
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
       <div className='rounded-lg bg-white p-8 shadow-xl lg:col-span-3 lg:p-12'>
-        <form className='space-y-4'>
+        <form className='space-y-4' onSubmit={handleSubmit(onSubmit)}>
           {/* Property Title */}
           <div>
             <label className='block text-sm font-medium text-gray-900'>
@@ -12,7 +38,11 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2  p-1 md:p-3  text-sm'
               placeholder='Property Title'
               type='text'
+              {...register('title', { required: true })}
             />
+            {errors.title?.type === 'required' && (
+              <p className='text-sm text-red-500'>Title Is Required</p>
+            )}
           </div>
 
           <div>
@@ -23,7 +53,11 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2  p-1 md:p-3  text-sm'
               placeholder='Propert located Districts'
               type='text'
+              {...register('district', { required: true })}
             />
+            {errors.district?.type === 'required' && (
+              <p className='text-sm text-red-500'>District Is Required</p>
+            )}
           </div>
 
           <div>
@@ -34,7 +68,11 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2  p-1 md:p-3  text-sm'
               placeholder='Enter the street'
               type='text'
+              {...register('address', { required: true })}
             />
+            {errors.address?.type === 'required' && (
+              <p className='text-sm text-red-500'>Address Is Required</p>
+            )}
           </div>
 
           <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
@@ -44,14 +82,20 @@ function AddPropertyPage() {
                 Bedrooms
               </label>
 
-              <select className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900 sm:text-sm'>
-                <option value=''>Please select</option>
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-                <option value='3'>3</option>
-                <option value='4'>4</option>
-                <option value='5'>5</option>
+              <select
+                className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900 sm:text-sm'
+                {...register('bedrooms', { required: true })}
+              >
+                <option defaultValue=''>Please select</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
               </select>
+              {errors.bedrooms?.type === 'required' && (
+                <p className='text-sm text-red-500'>Bedrooms Is Required</p>
+              )}
             </div>
 
             {/* BathRooms Select */}
@@ -59,14 +103,20 @@ function AddPropertyPage() {
               <label className='block text-sm font-medium text-gray-900'>
                 Bathrooms
               </label>
-              <select className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900  sm:text-sm'>
-                <option value=''>Please select</option>
+              <select
+                className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900  sm:text-sm'
+                {...register('bathrooms', { required: true })}
+              >
+                <option defaultValue=''>Please select</option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
                 <option value='3'>3</option>
                 <option value='4'>4</option>
                 <option value='5'>5</option>
               </select>
+              {errors.bathrooms?.type === 'required' && (
+                <p className='text-sm text-red-500'>Bathrooms Is Required</p>
+              )}
             </div>
           </div>
 
@@ -80,18 +130,29 @@ function AddPropertyPage() {
                 className='w-full rounded-lg border-gray-200 border-2 p-1 md:p-3  text-sm'
                 placeholder='Property Land Size'
                 type='number'
+                min='1'
+                {...register('landsize', { required: true })}
               />
+              {errors.landsize?.type === 'required' && (
+                <p className='text-sm text-red-500'>Land Size Is Required</p>
+              )}
             </div>
             {/* Unit */}
             <div>
               <label className='block text-sm font-medium text-gray-900'>
                 Units
               </label>
-              <select className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900 sm:text-sm'>
+              <select
+                className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900 sm:text-sm'
+                {...register('units', { required: true })}
+              >
                 <option value=''></option>
                 <option value='1'>perches</option>
                 <option value='2'>acres</option>
               </select>
+              {errors.units?.type === 'required' && (
+                <p className='text-sm text-red-500'>Units feild Is Required</p>
+              )}
             </div>
           </div>
 
@@ -103,7 +164,12 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2 p-1 md:p-3  text-sm'
               placeholder="What's the size of your property?"
               type='number'
+              {...register('houseSize', { required: true })}
+              min='1'
             />
+            {errors.houseSize?.type === 'required' && (
+              <p className='text-sm text-red-500'>HouseSize Is Required</p>
+            )}
           </div>
 
           <div>
@@ -114,7 +180,11 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2 p-3 text-sm'
               rows='8'
               placeholder='more details = more response'
+              {...register('description', { required: true })}
             ></textarea>
+            {errors.description?.type === 'required' && (
+              <p className='text-sm text-red-500'>Description Is Required</p>
+            )}
           </div>
 
           <div>
@@ -125,14 +195,24 @@ function AddPropertyPage() {
               className='w-full rounded-lg border-gray-200 border-2 p-1 md:p-3  text-sm'
               placeholder="What's the rent of your property?"
               type='number'
+              {...register('price', { required: true, min: 1000 })}
             />
+            {errors.price?.type === 'required' && (
+              <p className='text-sm text-red-500'>Price Is Required</p>
+            )}
+            {errors.price?.type === 'min' && (
+              <p className='text-sm text-red-500'>
+                Price Shuold be Greater Than Rs.1000{' '}
+              </p>
+            )}
           </div>
           {/* Negotiable Checkbox */}
           <div className='flex items-center mb-4'>
             <input
               id='default-checkbox'
               type='checkbox'
-              value=''
+              value={true}
+              {...register('negotiable', { required: true })}
               className='w-4 h-4 text-green-400 bg-gray-100 border-gray-300 rounded '
             />
             <label className='ml-2 text-sm font-medium text-gray-900'>
@@ -142,23 +222,16 @@ function AddPropertyPage() {
 
           <div className='mb-3'>
             <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
-              Add upto 3 Photos
+              Add upto 3 Photos(2 required)
             </label>
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              type='file'
-              accept='image/*'
-            />
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              type='file'
-              accept='image/*'
-            />
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              type='file'
-              accept='image/*'
-            />
+            {fields.map((field, index) => (
+              <input
+                className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+                key={field.id} // important to include key with field's id
+                {...register(`images.${index}.value`, { required: true })}
+                onChange={handleImageSubmit}
+              />
+            ))}
           </div>
           {/* Contact Details */}
           <div className='border-2 border-green-400 w-full'></div>

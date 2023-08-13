@@ -78,6 +78,7 @@ const loginUser = async (req, res) => {
     name: user.username,
     email: user.email,
     role: user.role,
+    phoneNumber: user.phoneNumber,
   };
 
   sendCookie(res, tokenUser);

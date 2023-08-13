@@ -1,7 +1,18 @@
 // user Profile
-import user from '../../assets/user.png';
+import userImg from '../../assets/user.png';
+//redux
+import { useSelector } from 'react-redux';
 
 function DashBoardPage() {
+  const { user } = useSelector((store) => store.user);
+
+  function handleImageUpload(e) {
+    console.log(e.target.files[0].name);
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    console.log(formData);
+  }
+
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
       <div className='flex flex-col gap-4 divide-y-2 divide-green-300'>
@@ -11,7 +22,7 @@ function DashBoardPage() {
           <div className='flex flex-col gap-2'>
             <div className='mb-4'>
               <img
-                src={user}
+                src={userImg}
                 alt='Profile'
                 className='mx-auto h-24 w-24 rounded-full object-cover'
               />
@@ -24,6 +35,7 @@ function DashBoardPage() {
                 className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
                 type='file'
                 accept='image/*'
+                onChange={handleImageUpload}
               />
             </div>
             {/* Email */}
@@ -36,7 +48,7 @@ function DashBoardPage() {
               <input
                 readOnly
                 type='email'
-                placeholder='anthony@rhcp.com'
+                value={user.email}
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
               />
             </label>
@@ -50,7 +62,7 @@ function DashBoardPage() {
               <input
                 type='text'
                 readOnly
-                placeholder='Maneesha Maduranga'
+                value={user.name}
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
               />
             </label>
@@ -66,7 +78,7 @@ function DashBoardPage() {
               <input
                 readOnly
                 type='tel'
-                placeholder='0763565630'
+                value={user.phoneNumber}
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
               />
             </label>
