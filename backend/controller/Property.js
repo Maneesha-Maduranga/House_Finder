@@ -18,7 +18,6 @@ const addProperty = async (req, res) => {
     description,
     price,
     negotiable,
-    images,
   } = req.body;
 
   const property = await Property.create({
@@ -34,9 +33,16 @@ const addProperty = async (req, res) => {
     price,
     negotiable,
     user: req.user.id,
-    images: images,
   });
 
+  res.status(200).json({
+    sucess: true,
+    data: property,
+  });
+};
+
+const getAllProperty = async (req, res) => {
+  const property = await Property.find({});
   res.status(200).json({
     sucess: true,
     data: property,
@@ -83,5 +89,6 @@ const uploadPropertyImages = async (req, res) => {
 
 module.exports = {
   addProperty,
+  getAllProperty,
   uploadPropertyImages,
 };

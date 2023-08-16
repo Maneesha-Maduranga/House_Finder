@@ -1,20 +1,32 @@
-import { useState } from 'react';
 //Hook Form
 import { useForm } from 'react-hook-form';
 
+//Redux
+import { useAddPropertyMutation } from '../../features/Rtk/propertySlice';
+
+//Toast
+import toast from 'react-hot-toast';
+
 function AddPropertyPage() {
-  const [images, setImages] = useState([]);
+  const [addProperty] = useAddPropertyMutation();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
-  function handleImageSubmit(event) {
-    console.log(images);
+  async function onSubmit(value) {
+    const { data, error } = await addProperty(value);
+    if (data) {
+      reset();
+      toast.success('Property Added');
+    }
+    if (error) {
+      toast.error('Somthing went wrong');
+    }
   }
-
-  const onSubmit = (data) => console.log(data);
 
   return (
     <div className='container mx-auto py-20 my-10 px-10'>
@@ -137,9 +149,8 @@ function AddPropertyPage() {
                 className='mt-1.5 w-full rounded-lg border-gray-300 border-2 p-1 text-sm font-medium text-gray-900 sm:text-sm'
                 {...register('units', { required: true })}
               >
-                <option value=''></option>
-                <option value='1'>perches</option>
-                <option value='2'>acres</option>
+                <option value='perches'>perches</option>
+                <option value='acres'>acres</option>
               </select>
               {errors.units?.type === 'required' && (
                 <p className='text-sm text-red-500'>Units feild Is Required</p>
@@ -211,42 +222,6 @@ function AddPropertyPage() {
             </label>
           </div>
 
-          <div className='mb-3'>
-            <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
-              Add upto 3 Photos(2 required)
-            </label>
-
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              {...register(`imageOne`, { required: true })}
-              type='file'
-              onChange={(e) => setImages([...images, e.target.files[0]])}
-            />
-            {errors.imageOne?.type === 'required' && (
-              <p className='text-sm text-red-500'>Image One Is Required</p>
-            )}
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              {...register(`imageTwo`, { required: true })}
-              type='file'
-              onChange={(e) => setImages([...images, e.target.files[0]])}
-            />
-            {errors.imageTwo?.type === 'required' && (
-              <p className='text-sm text-red-500'>Image Two Is Required</p>
-            )}
-            <input
-              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-              {...register(`imagesThree`, { required: true })}
-              type='file'
-              onChange={(e) => setImages([...images, e.target.files[0]])}
-            />
-            <button
-              onClick={handleImageSubmit}
-              className='bg-green-400 py-1 px-2 rounded-lg text-xs lg:text-sm text-white'
-            >
-              Uplaod
-            </button>
-          </div>
           {/* Contact Details */}
           <div className='border-2 border-green-400 w-full'></div>
 
@@ -313,3 +288,25 @@ function AddPropertyPage() {
 }
 
 export default AddPropertyPage;
+
+// <div className='mb-3'>
+// <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
+//   Add upto 3 Photos(2 required)
+// </label>
+// <input
+//   className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+//   {...register(`imageOne`, { required: true })}
+//   type='file'
+// />
+// {errors.imageOne?.type === 'required' && (
+//   <p className='text-sm text-red-500'>Image One Is Required</p>
+// )}
+// <input
+//   className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+//   {...register(`imageTwo`, { required: true })}
+//   type='file'
+// />
+// {errors.imageTwo?.type === 'required' && (
+//   <p className='text-sm text-red-500'>Image Two Is Required</p>
+// )}
+// </div>
