@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
+
 //Image
 import House from '../assets/house.png';
 
 //Component
 import SearchSection from '../components/SearchSection';
 import PropertyCard from '../components/PropertyCard';
+import Spinner from '../components/Spinner';
+
+//Redux
+import { useGetPropertyQuery } from '../features/Rtk/propertyApiSlice';
 
 function PropertyPage() {
+  //show & Hide Search Bar
   const [searchSection, setSearchSection] = useState(false);
+
+  //Get Propertise
+  const { data, isLoading, isError } = useGetPropertyQuery();
 
   function handleSearchSection() {
     setSearchSection(!searchSection);
@@ -25,16 +34,19 @@ function PropertyPage() {
           <BiSearch size={28} onClick={handleSearchSection} color='white' />
         </div>
       </div>
-
-      <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3'>
-        {Array.from([1, 2, 3, 4, 5, 6, 7, 8]).map((item) => {
-          return (
-            <div key={item}>
-              <PropertyCard />
-            </div>
-          );
-        })}
-      </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3'>
+          {data.data.map((item) => {
+            return (
+              <div key={item._id}>
+                <PropertyCard property={item} />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* SearchBar */}
       <div

@@ -1,8 +1,14 @@
 //components
 import Carousel from '../components/carousel/Carousel';
 import PropertyCard from '../components/PropertyCard';
+import Spinner from '../components/Spinner';
+
+//redux
+import { useGetLatestPropertyQuery } from '../features/Rtk/propertyApiSlice';
 
 function HomePage() {
+  const { data, isLoading } = useGetLatestPropertyQuery();
+
   return (
     <div>
       {/* Carresel  Section */}
@@ -22,29 +28,23 @@ function HomePage() {
             suit every taste and budget. Our user-friendly search tools and
             comprehensive property listings make house hunting a breeze.
           </p>
-          {/* <h1 className='text-2xl md:text-3xl  font-bold'>
-            Find Your Dream Rental Property
-          </h1>
-          <p className='py-5 tracking-normal text-left text-lg font-medium'>
-            Are you tired of endlessly scrolling through listings that don't
-            match your preferences? Look no further! Our advanced search bar
-            lets you filter properties by location, price range, number of
-            bedrooms, and more. We believe that finding your ideal rental home
-            should be simple and stress-free.
-          </p> */}
         </div>
         {/* Latest Listing Section */}
         <div>
           <h1 className='text-2xl md:text-3xl font-bold'>Latest Properties</h1>
-          <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 py-4'>
-            {Array.from([1, 2, 3, 4, 5, 6]).map((item) => {
-              return (
-                <div key={item}>
-                  <PropertyCard />
-                </div>
-              );
-            })}
-          </div>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-3 py-4'>
+              {data.data.map((item) => {
+                return (
+                  <div key={item._id}>
+                    <PropertyCard property={item} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

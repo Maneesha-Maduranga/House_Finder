@@ -1,28 +1,29 @@
-import producImg from '../assets/property-1.jpg';
-import photo from '../assets/photo.jpg';
+//Link
+import { Link } from 'react-router-dom';
+
+import productImg from '../assets/property-1.jpg';
+
 import { AiOutlineRight } from 'react-icons/ai';
 
-function PropertyCard() {
+function PropertyCard({ property }) {
   return (
     <div className='group relative block md:h-96 w-auto overflow-hidden'>
       {/* BackGround Image */}
       <img
-        src={producImg}
+        src={property.images[0] ? property.images[0] : productImg}
         alt='imageOne'
         className='brightness-75 h-full w-full transition duration-1000 group-hover:scale-110'
       />
       <div className='absolute bottom-0  ease-in-out duration-500 text-white group-hover:bottom-14 group-hover:ease-in-out group-hover:duration-700 '>
         <div className=' mx-2 px-4 py-4'>
-          <h1 className='text-3xl font-semibold my-1'>
-            204 Mount Olive Road Two
-          </h1>
+          <h1 className='text-3xl font-semibold my-1'>{property.title}</h1>
           <div className='flex flex-col items-start gap-2'>
             <button className='border-2 border-green-500   px-2 rounded-full '>
-              RENT | $12.000
+              RENT | $: {property.price}
             </button>
-            <button>
+            <Link to={`/property/${property._id}`}>
               Click Here to View <AiOutlineRight className='inline-flex' />
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -37,15 +38,11 @@ function PropertyCard() {
           </div>
           <div>
             <h6>Beds</h6>
-            <h6 className='text-white'>3</h6>
+            <h6 className='text-white'>{property.bedrooms}</h6>
           </div>
           <div>
             <h6>Bath</h6>
-            <h6 className='text-white'>2</h6>
-          </div>
-          <div>
-            <h6>Garage</h6>
-            <h6 className='text-white'>1</h6>
+            <h6 className='text-white'>{property.bathrooms}</h6>
           </div>
         </div>
       </div>

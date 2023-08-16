@@ -15,6 +15,8 @@ import BgImage from './BgImage';
 
 import image01 from '../../assets/image01.jpg';
 import image02 from '../../assets/image02.jpg';
+import cozy from '../../assets/cozy.jpg';
+import carhouse from '../../assets/carhouse.jpg';
 
 function Carousel() {
   return (
@@ -34,10 +36,16 @@ function Carousel() {
         className='h-screen'
       >
         <SwiperSlide>
-          <BgImage image={image01} />
+          <BgImage image={image01} title='Historic Brownstone' rent='250000' />
         </SwiperSlide>
         <SwiperSlide>
-          <BgImage image={image02} />
+          <BgImage image={image02} title='Rural Farmhouse' rent='340000' />
+        </SwiperSlide>
+        <SwiperSlide>
+          <BgImage image={cozy} title='Lakefront Bungalow' rent='580000' />
+        </SwiperSlide>
+        <SwiperSlide>
+          <BgImage image={carhouse} title='Charming Cottage' rent='180000' />
         </SwiperSlide>
       </Swiper>
     </div>

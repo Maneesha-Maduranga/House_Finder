@@ -104,7 +104,7 @@ function Navbar() {
               </button>
             )}
 
-            <button className='p-2 bg-green-300' onClick={handleNavigate}>
+            <button className='p-2 bg-green-300'>
               + <span className='font-thin text-sm'>Post your Ad</span>
             </button>
           </div>
@@ -155,7 +155,7 @@ function Navbar() {
             </button>
           )}
 
-          <button className='p-2 bg-green-400' onClick={handleNavigate}>
+          <button className='p-2 bg-green-400'>
             + <span className='font-light'>Post your Ad</span>
           </button>
         </div>

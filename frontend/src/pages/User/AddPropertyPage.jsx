@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form';
 
 //Redux
-import { useAddPropertyMutation } from '../../features/Rtk/propertySlice';
+import { useAddPropertyMutation } from '../../features/Rtk/propertyApiSlice';
 
 //Toast
 import toast from 'react-hot-toast';

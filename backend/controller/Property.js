@@ -17,6 +17,7 @@ const addProperty = async (req, res) => {
     houseSize,
     description,
     price,
+    images,
     negotiable,
   } = req.body;
 
@@ -32,6 +33,7 @@ const addProperty = async (req, res) => {
     description,
     price,
     negotiable,
+    images: images,
     user: req.user.id,
   });
 
@@ -43,6 +45,29 @@ const addProperty = async (req, res) => {
 
 const getAllProperty = async (req, res) => {
   const property = await Property.find({});
+  res.status(200).json({
+    sucess: true,
+    data: property,
+  });
+};
+
+const getLatestProperty = async (req, res) => {
+  const property = await Property.find({}).limit(6).sort({ created_at: -1 });
+  res.status(200).json({
+    sucess: true,
+    data: property,
+  });
+};
+
+const getSingleProperty = async (req, res) => {
+  const { id } = req.params;
+  const property = await Property.findById(id).populate({
+    path: 'user',
+    select: 'username email phoneNumber image -_id',
+  });
+  if (!property) {
+    throw new CustomError('No Property Found With Give Id', 404);
+  }
   res.status(200).json({
     sucess: true,
     data: property,
@@ -90,5 +115,7 @@ const uploadPropertyImages = async (req, res) => {
 module.exports = {
   addProperty,
   getAllProperty,
+  getSingleProperty,
+  getLatestProperty,
   uploadPropertyImages,
 };

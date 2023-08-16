@@ -8,11 +8,21 @@ const {
   addProperty,
   uploadPropertyImages,
   getAllProperty,
+  getSingleProperty,
+  getLatestProperty,
 } = require('../controller/Property');
 
 //Add Property
 //@Private
 router.post('/addProperty', authentication, addProperty);
+
+//Get Property Single
+//@public
+router.get('/getSingleProperty/:id', getSingleProperty);
+
+//Get Latest
+//@public
+router.get('/getLatestProperty', getLatestProperty);
 
 //Get Property
 //@public

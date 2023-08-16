@@ -1,6 +1,8 @@
-function Badge() {
+function Badge({ message, color }) {
   return (
-    <span className='inline-flex items-center justify-center m-1 rounded-full bg-green-300 px-2.5 py-0.5 text-emerald-700'>
+    <span
+      className={`inline-flex items-center justify-center m-1 rounded-full bg-${color} px-2.5 py-0.5 `}
+    >
       <svg
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
@@ -16,7 +18,7 @@ function Badge() {
         />
       </svg>
 
-      <p className='whitespace-nowrap text-sm'>Paid</p>
+      <p className='whitespace-nowrap text-sm'>{message}</p>
     </span>
   );
 }
