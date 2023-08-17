@@ -1,5 +1,6 @@
 //Hook Form
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 
 //Redux
 import { useAddPropertyMutation } from '../../features/Rtk/propertyApiSlice';
@@ -8,6 +9,8 @@ import { useAddPropertyMutation } from '../../features/Rtk/propertyApiSlice';
 import toast from 'react-hot-toast';
 
 function AddPropertyPage() {
+  const { user } = useSelector((store) => store.user);
+
   const [addProperty] = useAddPropertyMutation();
 
   const {
@@ -18,14 +21,16 @@ function AddPropertyPage() {
   } = useForm();
 
   async function onSubmit(value) {
-    const { data, error } = await addProperty(value);
-    if (data) {
-      reset();
-      toast.success('Property Added');
-    }
-    if (error) {
-      toast.error('Somthing went wrong');
-    }
+    toast.success('Website Under Construction');
+    reset();
+    // const { data, error } = await addProperty(value);
+    // if (data) {
+    //   reset();
+    //   toast.success('Property Added');
+    // }
+    // if (error) {
+    //   toast.error('Somthing went wrong');
+    // }
   }
 
   return (
@@ -222,6 +227,28 @@ function AddPropertyPage() {
             </label>
           </div>
 
+          <div className='mb-3'>
+            <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
+              Add upto 3 Photos(2 required)
+            </label>
+            <input
+              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+              {...register(`imageOne`, { required: true })}
+              type='file'
+            />
+            {errors.imageOne?.type === 'required' && (
+              <p className='text-sm text-red-500'>Image One Is Required</p>
+            )}
+            <input
+              className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
+              {...register(`imageTwo`, { required: true })}
+              type='file'
+            />
+            {errors.imageTwo?.type === 'required' && (
+              <p className='text-sm text-red-500'>Image Two Is Required</p>
+            )}
+          </div>
+
           {/* Contact Details */}
           <div className='border-2 border-green-400 w-full'></div>
 
@@ -237,8 +264,9 @@ function AddPropertyPage() {
               <input
                 readOnly
                 type='email'
-                placeholder='anthony@rhcp.com'
+                placeholder='User@gmail.com'
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
+                value={user.email}
               />
             </label>
             {/* Name */}
@@ -251,8 +279,9 @@ function AddPropertyPage() {
               <input
                 type='text'
                 readOnly
-                placeholder='Maneesha Maduranga'
+                placeholder='User Name'
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
+                value={user.name}
               />
             </label>
             {/* Telphone */}
@@ -266,8 +295,9 @@ function AddPropertyPage() {
 
               <input
                 readOnly
+                value={user.phoneNumber}
                 type='tel'
-                placeholder='0763565630'
+                placeholder='07xxxxxxx'
                 className='mt-1 w-full border-none p-0 focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm'
               />
             </label>
@@ -288,25 +318,3 @@ function AddPropertyPage() {
 }
 
 export default AddPropertyPage;
-
-// <div className='mb-3'>
-// <label className='mb-2 inline-block text-sm font-medium text-gray-900'>
-//   Add upto 3 Photos(2 required)
-// </label>
-// <input
-//   className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-//   {...register(`imageOne`, { required: true })}
-//   type='file'
-// />
-// {errors.imageOne?.type === 'required' && (
-//   <p className='text-sm text-red-500'>Image One Is Required</p>
-// )}
-// <input
-//   className='relative m-1 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-xs font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem]'
-//   {...register(`imageTwo`, { required: true })}
-//   type='file'
-// />
-// {errors.imageTwo?.type === 'required' && (
-//   <p className='text-sm text-red-500'>Image Two Is Required</p>
-// )}
-// </div>

@@ -42,6 +42,21 @@ app.use('/api/auth/', authRouter);
 app.use('/api/user/', userRouter);
 app.use('/api/property/', propertyRouter);
 
+//Serving Frontend
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('House Finder MERN APPLICATION');
+  });
+}
+
 //Middleware
 app.use(notFound);
 app.use(errorHandler);
@@ -57,20 +72,5 @@ const startServer = async () => {
     console.log(error);
   }
 };
-
-//Serving Frontend
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
-
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {
-    res.send('House Finder MERN APPLICATION');
-  });
-}
 
 startServer();

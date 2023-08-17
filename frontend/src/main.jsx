@@ -50,6 +50,7 @@ const router = createBrowserRouter(
       <Route path='/reset-password' element={<ResetPasswordPage />} />
       <Route path='' element={<PrivateLayout />}>
         <Route path='/dashboard' element={<DashBoardPage />} />
+        <Route path='/add-property' element={<AddPropertyPage />} />
       </Route>
     </Route>
   )
