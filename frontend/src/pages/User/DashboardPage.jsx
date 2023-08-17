@@ -148,9 +148,13 @@ function DashBoardPage() {
         )}
 
         {/* Listing */}
-        <div className='text-left'>
-          <h1 className='text-2xl font-normal p-2'>My Listing (2) </h1>
-        </div>
+        {/* {!isLoading && data.data.Property.length > 0 ? (
+          <div className='text-left'>
+            <h1 className='text-2xl font-normal p-2'>
+              My Listing ({data.data.Property.length})
+            </h1>
+          </div>
+        ) : null} */}
       </div>
     </div>
   );

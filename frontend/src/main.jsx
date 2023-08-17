@@ -24,6 +24,7 @@ import PrivateLayout from './layout/PrivateLayout.jsx';
 import HomePage from './pages/HomePage';
 import PropertyPage from './pages/PropertyPage.jsx';
 import PropertyDetail from './pages/PropertyDetailPage.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 
 //Auth Pages
 import SigninPage from './pages/Auth/SigninPage.jsx';
@@ -38,7 +39,7 @@ import AddPropertyPage from './pages/User/AddPropertyPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
+    <Route path='/' element={<App />} errorElement={<ErrorPage />}>
       <Route index element={<HomePage />} />
       <Route path='/property' element={<PropertyPage />} />
       <Route path='/property/:id' element={<PropertyDetail />} />
@@ -49,7 +50,6 @@ const router = createBrowserRouter(
       <Route path='/reset-password' element={<ResetPasswordPage />} />
       <Route path='' element={<PrivateLayout />}>
         <Route path='/dashboard' element={<DashBoardPage />} />
-        <Route path='/add-property' element={<AddPropertyPage />} />
       </Route>
     </Route>
   )

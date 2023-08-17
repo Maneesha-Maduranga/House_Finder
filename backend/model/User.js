@@ -50,8 +50,8 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-UserSchema.virtual('orders', {
-  ref: 'Order',
+UserSchema.virtual('Property', {
+  ref: 'Property',
   localField: '_id',
   foreignField: 'user',
 });

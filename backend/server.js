@@ -1,5 +1,6 @@
 //Express
 const express = require('express');
+const path = require('path');
 
 //Additional Package
 require('dotenv').config();
@@ -56,5 +57,20 @@ const startServer = async () => {
     console.log(error);
   }
 };
+
+//Serving Frontend
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('House Finder MERN APPLICATION');
+  });
+}
 
 startServer();

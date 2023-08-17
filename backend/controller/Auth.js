@@ -36,12 +36,14 @@ const registerUser = async (req, res) => {
     verifyToken: token,
   });
 
-  let origin = ' http://localhost:5173/';
+  // let origin = ' http://localhost:5173/';
+
+  // console.log(req.headers.origin);
 
   await emailVerification({
     name: user.username,
     email: user.email,
-    origin: origin,
+    origin: req.headers.origin,
     token: user.verifyToken,
   });
 
@@ -125,7 +127,7 @@ const forgetPassword = async (req, res) => {
     await emailForgetPassword({
       name: user.username,
       email: user.email,
-      origin: origin,
+      origin: req.headers.origin,
       token: passwordToken,
     });
     let time = 1000 * 60 * 10;
@@ -167,9 +169,9 @@ const resetPassword = async (req, res) => {
 };
 
 const showMe = async (req, res) => {
-  let user = await User.findById(req.user.id).select(
-    '-password -role -verifyToken -verifiedAt'
-  );
+  let user = await User.findById(req.user.id)
+    .select('-password -role -verifyToken -verifiedAt')
+    .populate('Property');
   if (!user) {
     throw new CustomError('No user Found', 404);
   }
