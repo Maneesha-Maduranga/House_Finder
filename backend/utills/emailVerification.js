@@ -1,7 +1,7 @@
 const sendEmail = require('./sendEmail');
 
 const emailVerification = async ({ name, email, token, origin }) => {
-  let verified = `${origin}verify-email?token=${token}&email=${email}`;
+  let verified = `${origin}/verify-email?token=${token}&email=${email}`;
 
   let messege = `
   <h3>Verify Your Account</h3>
