@@ -1,5 +1,5 @@
 // Models
-const { User, userValidator } = require('../Model/User');
+const { User } = require('../model/User');
 
 // Helpers
 const CustomError = require('../utills/customError');
@@ -33,7 +33,7 @@ const updateProfilePic = async (req, res) => {
   if (!image) {
     throw new CustomError('Please Add Photo Url', 400);
   }
- 
+
   let user = await User.findById(req.user.id);
 
   if (user) {

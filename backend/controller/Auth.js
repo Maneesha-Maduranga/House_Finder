@@ -1,5 +1,5 @@
 // Models
-const { User, userValidator } = require('../Model/User');
+const { User, userValidator } = require('../model/User');
 
 // Helpers
 const CustomError = require('../utills/customError');

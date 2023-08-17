@@ -11,7 +11,7 @@ const {
   resetPassword,
   showMe,
   logoutUser,
-} = require('../controller/Auth.js');
+} = require('../controller/Auth');
 
 //Register User
 router.post('/register', registerUser);
