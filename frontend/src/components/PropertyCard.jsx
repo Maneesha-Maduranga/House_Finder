@@ -16,8 +16,10 @@ function PropertyCard({ property }) {
       />
       <div className='absolute bottom-0  ease-in-out duration-500 text-white group-hover:bottom-14 group-hover:ease-in-out group-hover:duration-700 '>
         <div className=' mx-2 px-4 py-4'>
-          <h1 className='text-3xl font-semibold my-1'>{property.title}</h1>
-          <div className='flex flex-col items-start gap-2'>
+          <h1 className='text-xl font-semibold my-1 md:text-3xl'>
+            {property.title}
+          </h1>
+          <div className='flex flex-col items-start gap-2 text-sm md:text-base'>
             <button className='border-2 border-green-500   px-2 rounded-full '>
               RENT | $: {property.price}
             </button>

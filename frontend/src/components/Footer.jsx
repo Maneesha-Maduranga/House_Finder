@@ -3,13 +3,13 @@ import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin } from 'react-icons/bs';
 function Footer() {
   return (
     <div className='w-full grid grid-rows-3 gap-3 text-center bg-slate-100 py-4 text-sm font-thin'>
-      <div className='flex items-center justify-center gap-3'>
+      <div className='flex items-center justify-center gap-6'>
         <h6>Home</h6>
         <h6>About</h6>
 
         <h6>Property</h6>
       </div>
-      <div className='flex items-center justify-center gap-3  border-b-2'>
+      <div className='flex items-center justify-center gap-6  border-b-2'>
         <BsFacebook />
         <BsInstagram />
         <BsTwitter />
